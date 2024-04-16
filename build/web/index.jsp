@@ -10,6 +10,7 @@
         <title>my CV Project</title>
     </head>
     <body onload="displayResults()">
+        <!---->
         <h1 id="nav" >MY CV PROJECT</h1>
         <%!
             public class CV {
@@ -362,7 +363,6 @@
                 resH = person.insertHobbies(firstH, secondH, thirdH,person.person_id);
                 resT = person.insertTrainings(firstT, secondT, thirdT,person.person_id);
                 resS = person.insertTrainingSite(firstS, secondS, thirdS,person.person_id);
-
             }
         %>
     <center>
@@ -448,20 +448,24 @@
 
                 </tbody>
             </table>
-            <input  class ="btn" type="submit" value="Submit" name="submit"  />
+            <input class="btn" type="submit" value="Submit" name="submit" />
             <input class ="tb" type="hidden" name="hidden" value="<%= result%>" size="50" />
+            
         </form>
 
     </center>
 
     <SCRIPT LANGUAGE="JavaScript">
-    // REDIRCTING TO AGGREGATES   
-    function displayResults() {
-    console.log("Function called. Hidden value:", document.myForm.hidden.value); // This will log the value
-    if (document.myForm.hidden.value == "1") {
-        window.location.href = "aggregates.jsp"; // Redirect to another JSP page
-    }
-}
+        // Function to handle the form submission and potential redirection
+       function displayResults() {
+           // Prevent the default form submission
+           console.log("Function called. Hidden value:", document.myForm.hidden.value);
+           // Check the value of the hidden input and redirect if it's "1"
+           if (document.myForm.hidden.value == "1") {
+               window.location.href = "aggregates.jsp"; // Redirect to another JSP page
+           }
+       }
+
     </SCRIPT>
 </body>
 </html>
