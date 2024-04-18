@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="resume.png">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <style>
-     body {
+    body {
         font-family: 'Arial', sans-serif; /* Ensures consistent font across the page */
         margin: 0;
         padding: 0;
@@ -88,8 +88,6 @@
                 Connection conn = null;
                 PreparedStatement pstmt = null;
                 ResultSet rs = null;
-                int countMohamed = 0;
-                int countZagazig = 0;
                 // 
                 StringBuilder languageData = new StringBuilder(); 
                 StringBuilder projectData = new StringBuilder();
@@ -104,6 +102,7 @@
                     String password = "Mohamedlimo236";
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     conn = DriverManager.getConnection(url, user, password);
+                    
                     // chart query
                     String chartQuery = "SELECT country, COUNT(*) * 100.0 / (SELECT COUNT(*) FROM person) AS percentage FROM person GROUP BY country";
                     pstmt = conn.prepareStatement(chartQuery);
@@ -156,7 +155,7 @@
                                   .append("</td></tr>");
                     }
                     projectData.append("</table>");
-                    // most enrolled courses 
+                    // most enrolled courses
                    String enrollmentQuery = "SELECT courseName, COUNT(idperson) AS total_enrollments " +
                                      "FROM mycvproject.course " +
                                      "JOIN mycvproject.person ON person.idperson = course.person_idperson " +
@@ -223,16 +222,8 @@
                     }
                     hobbyData.append("</table>");
 
-                    // Fetch count of people named Mohamed
-                   String mohamedQuery = "SELECT COUNT(*) as countMohamed FROM person WHERE fname LIKE 'Mohamed%'";
-                    pstmt = conn.prepareStatement(mohamedQuery);
-                    rs = pstmt.executeQuery();
-                    if (rs.next()) {
-                        countMohamed = rs.getInt("countMohamed");
-                    }
-
                     // Fetch count of people from Zagazig
-                   String peopleQuery = "SELECT fName, lName, COUNT(*) OVER() AS totalCount FROM mycvproject.person WHERE city = 'Zagazig'";
+                   String peopleQuery = "SELECT fName, COUNT(*) OVER() AS totalCount FROM mycvproject.person WHERE city = 'Zagazig'";
                     pstmt = conn.prepareStatement(peopleQuery);
                     rs = pstmt.executeQuery();
 
@@ -287,8 +278,6 @@
     <%=courseData.toString()%> 
     <h1>Least Common hobbies</h1>
     <%=hobbyData.toString()%> <!-- Display the project data -->
-<!--    <h1>First Name Mohamed</h1>
-    <p id="mohamedCount" class="infoText">Number of people named Mohamed: <%=countMohamed%></p>-->
     <h1>People from Zagazig</h1>
     <%=zagPeopleData.toString()%>
     

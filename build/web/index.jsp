@@ -10,7 +10,7 @@
         <title>my CV Project</title>
     </head>
     <body onload="displayResults()">
-        <!---->
+
         <h1 id="nav" >MY CV PROJECT</h1>
         <%!
             public class CV {
